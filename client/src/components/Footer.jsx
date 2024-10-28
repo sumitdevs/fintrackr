@@ -3,7 +3,9 @@ import React from 'react';
 const Footer = ()=>{
     return(
         <footer>
-            <h1>Hello from footer</h1>
+            <div className='max-w-7xl mx-auto text-center py-4'>
+                <p>&copy; fintrackr {new Date().getFullYear()}</p>
+            </div>
         </footer>
     )
 }
