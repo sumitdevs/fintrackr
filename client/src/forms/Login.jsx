@@ -1,8 +1,11 @@
 import {React, useState} from 'react';
 import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = ()=>{
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({email:'', password:''});
     const handleFormData = (e)=>{
         setFormData({
@@ -10,18 +13,28 @@ const Login = ()=>{
             [e.target.name]:e.target.value,
         });
     };
-    const[error, setError] = useState('');
-    const [color, setColor] = useState('')
+    const handleError = (err) =>
+        toast.error(err, {
+          position: "bottom-left",
+        });
+      const handleSuccess = (msg) =>
+        toast.success(msg, {
+          position: "bottom-left",
+        });
     const handleSubmit = async (e)=>{
         e.preventDefault();
         try{
-            const response = await axios.post('http://localhost:5000/auth/login', formData);
-            if(response.status>200){
-                setColor('text-red-500');
-            } else{
-                navigate('/dashboard');
-            }
-            setError(response.data.message);
+            const {data} = await axios.post('http://localhost:5000/login', formData,{ withCredentials: true }
+            );
+            const {message, success} = data;
+            if (success) {
+                handleSuccess(message);
+                setTimeout(() => {
+                  navigate("/dashboard");
+                }, 1000);
+              } else {
+                handleError(message);
+              }
         } catch (err) {
             console.log(err);
         }
@@ -31,7 +44,6 @@ const Login = ()=>{
         <div className="mx-auto max-w-7xl h-screen">
         <div className='w-full  mx-auto lg:w-1/3 md:w-1/2 flex flex-col justify-center items-center gap-6 p-10 bg-white rounded-md'>
             <h2 className='text-4xl font-semibold'>Login</h2>
-            <p className={color}>{error}</p>
             <form onSubmit={handleSubmit} action="" className='w-full flex flex-col gap-4'>
                 <input onChange={handleFormData} className='border outline-none px-4 py-2' placeholder='Email' type="email" name="email" id="email" value={formData.email} required />
                 <input onChange={handleFormData} className='border outline-none px-4 py-2' placeholder='Psassword' type="password" name="password" value={formData.password} id="pass" required />
@@ -52,6 +64,7 @@ const Login = ()=>{
                 <span className="mx-auto">Login with Google</span>
             </button>
         </div>
+        <ToastContainer/>
     </div>
     )
 }

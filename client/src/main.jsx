@@ -1,9 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './App.css'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
+import AuthProvider from './AuthProvider.jsx';
+import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  // <StrictMode>
+    // <AuthProvider>
+      <App />
+    // {/* </AuthProvider> */}
+  // </StrictMode>,
 )

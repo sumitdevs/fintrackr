@@ -1,7 +1,29 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 const HeaderHome = () => {
+    const [cookies,_, removeCookie] = useCookies([]);
+    const [user, setUser] = useState('');
+    const [status, setStatus] = useState(false);
+    
+    useEffect(()=>{
+        const fetchUser = async ()=>{
+            const {data} = await axios.post("http://localhost:5000", {}, {withCredentials:true});
+            const {user, status} = data;
+            setUser(user.split('@')[0]);
+            setStatus(status);
+        };
+
+        fetchUser();
+    },[status]);
+
+    const handleLogout = () => {
+        removeCookie("token", { path: "/" });
+        setStatus(false);
+        // navigate("/");
+      };
+    
     return (
         <header className="bg-white">
             <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -24,10 +46,16 @@ const HeaderHome = () => {
                     <Link to="/features" className="text-sm font-semibold leading-6 text-gray-900">Features</Link>
                     <Link to="contact" className="text-sm font-semibold leading-6 text-gray-900">Contact</Link>
                 </div>
-                <div className="hidden gap-x-12 lg:flex lg:flex-1 lg:justify-end">
+                <div className={(status?'lg:hidden ':'lg:flex ') + 'hidden gap-x-12 lg:flex-1 lg:justify-end'}>
                     <Link to="/register" className="text-sm font-semibold leading-6 text-gray-900">Register</Link>
                     <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></Link>
                 </div>
+
+                <div className={ (status?'lg:flex ':'lg:hidden ') + 'hidden gap-x-12  lg:flex-1 lg:justify-end'}>
+                   <p>{user}</p>
+                   <button onClick={handleLogout}>Logout</button>
+                </div>
+               
             </nav>
         </header>
 

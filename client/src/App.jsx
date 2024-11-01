@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React,{useContext} from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomeLayout from './Layout/HomeLayout';
 import DashboardLayout from './Layout/DashboardLayout';
 import Register from './forms/Register';
@@ -10,9 +10,8 @@ import Features from './pages/Features';
 import Login from './forms/Login'
 import Dashboard from './pages/Dashboard/Dashboard';
 import Account from './pages/Dashboard/subpages/account';
-
+import ProtectedRoute from './ProtectedRoute';
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -24,9 +23,11 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
         </Route>
-        <Route path="dashboard" element={<DashboardLayout />}>
+        <Route  element={<ProtectedRoute />}>
+         <Route path="/dashboard"  element={<DashboardLayout />}>
           <Route index element={<Dashboard/>} />
           <Route path='account' element={<Account/>} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

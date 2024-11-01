@@ -1,6 +1,8 @@
 import {React, useState,useEffect} from  'react';
 import { FcGoogle } from "react-icons/fc";
 import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+
 
 const Register = ()=>{
     const [formData, setFormData]= useState({
@@ -8,8 +10,6 @@ const Register = ()=>{
         password:'',
         confirmPassword:''
     });
-    const[error, setError] = useState('');
-    const [color, setColor] = useState('')
 
     const handleFormData = (e)=>{
         setFormData({
@@ -18,11 +18,18 @@ const Register = ()=>{
         });
     };
 
+    const handleError = (err) =>
+        toast.error(err, {
+          position: "bottom-left",
+        });
+      const handleSuccess = (msg) =>
+        toast.success(msg, {
+          position: "bottom-right",
+        });
+
     const handleSubmit = async (e)=>{
         e.preventDefault();
         if(formData.password !== formData.confirmPassword){
-            setColor('text-red-500');
-            setError('Error! Confirm Password Not Match');
             setFormData({
                 ...formData,
                 confirmPassword:''
@@ -30,11 +37,16 @@ const Register = ()=>{
             return
         }
         try {
-            const response = await axios.post('http://localhost:5000/auth/register', formData);
-            // console.log(response.status);
-            if(response.status>200) setColor('text-red-500')
-            else setColor('text-green-500');
-            setError(response.data.message);
+            const {data} = await axios.post('http://localhost:5000/register', formData, { withCredentials: true });
+            const {message,success} = data;
+            if (success) {
+                handleSuccess(message);
+                setTimeout(() => {
+                  navigate("/");
+                }, 1000);
+              } else {
+                handleError(message);
+              }
           } catch (error) {
             console.log('Error submitting form:', error); // Handle error (e.g., show an error message)
           }
@@ -50,7 +62,6 @@ const Register = ()=>{
             <div className="mx-auto max-w-7xl h-screen">
                 <div className='w-full mx-auto md:w-1/2 lg:w-1/3 flex flex-col justify-center items-center gap-6 p-10 bg-white rounded-md'>
                     <h2 className='text-4xl font-semibold'>Signup</h2>
-                    <p className={color}>{error}</p>
                     <form onSubmit={handleSubmit} action="" className='w-full flex flex-col gap-4'>
                         <input onChange={handleFormData} className='border outline-none px-4 py-2' placeholder='Email' type="email" name="email" id='email' value={formData.email} required />
                         <input onChange={handleFormData} className='border outline-none px-4 py-2' placeholder='Create password' type="password" value={formData.password} name="password" id="password" required />
@@ -71,6 +82,7 @@ const Register = ()=>{
                         <span className="mx-auto">Login with Google</span>
                     </button>
                     </div>
+                    <ToastContainer />
             </div>
     )
 }
