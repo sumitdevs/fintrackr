@@ -8,7 +8,6 @@ export default {
     './src/*.jsx',
     './src/pages/Dashboard/*.jsx',
     './src/pages/Dashboard/subpages/*.jsx',
-
   ],
   theme: {
     extend: {},
