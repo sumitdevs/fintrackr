@@ -11,6 +11,8 @@ import Login from './forms/Login'
 import Dashboard from './pages/Dashboard/Dashboard';
 import Account from './pages/Dashboard/subpages/account';
 import ProtectedRoute from './ProtectedRoute';
+import Setting from './pages/Dashboard/subpages/setting';
+import Report from './pages/Dashboard/subpages/report';
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +29,8 @@ function App() {
          <Route path="/dashboard"  element={<DashboardLayout />}>
           <Route index element={<Dashboard/>} />
           <Route path='account' element={<Account/>} />
+          <Route path='settings' element={<Setting/>} />
+          <Route path='reports' element={<Report/>} />
           </Route>
         </Route>
       </Routes>

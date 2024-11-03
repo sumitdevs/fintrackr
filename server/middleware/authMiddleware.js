@@ -9,11 +9,11 @@ import jwt from 'jsonwebtoken';
   }
   jwt.verify(token, process.env.JWT_SECRET, async (err, data) => {
     if (err) {
-        console.log(err);
+      console.log(err);
       return res.json({ status: false });
     } else {
       const user = await User.findById(data.id);
-      if (user) return res.json({ status: true, user: user.email});
+      if (user) return res.json({ status: true, user: user.userName});
       else return res.json({ status: false });
     }
   });

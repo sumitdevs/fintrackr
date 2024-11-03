@@ -33,16 +33,42 @@ const Dashboard = () => {
     verifyCookie();
   }, [ cookies, removeCookie]);
 
-  const handleLogout = () => {
-    removeCookie("token", { path: "/" });
-    navigate("/");
-  };
-
+ 
   return (
-    <div>
-      <p>Hello from dashboard</p>
-      <button onClick={handleLogout}>Logout</button>
+    <div>  
+  {/* <!-- Dashboard Content --> */}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-8">
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold">Overview</h2>
+      <p class="mt-2 text-gray-600">Some quick overview stats go here.</p>
     </div>
+    
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold">Recent Activity</h2>
+      <p class="mt-2 text-gray-600">Recent updates and activity log.</p>
+    </div>
+    
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold">Reports</h2>
+      <p class="mt-2 text-gray-600">Detailed reports and analytics.</p>
+    </div>
+    
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold">Settings</h2>
+      <p class="mt-2 text-gray-600">Manage account and preferences.</p>
+    </div>
+    
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold">Messages</h2>
+      <p class="mt-2 text-gray-600">View and manage messages.</p>
+    </div>
+    
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold">Support</h2>
+      <p class="mt-2 text-gray-600">Contact support and FAQs.</p>
+    </div>
+  </div>
+</div>
   );
 };
 

@@ -1,25 +1,19 @@
 import express from "express";
 import User from "../models/User.js";
-const router = express.Router();
 import generateToken from "../utils/generateToken.js";
 import userVerification from "../middleware/authMiddleware.js";
 
-router.post("/register", async (req, res,next) => {
+const authRouter = express.Router();
+
+authRouter.post("/register", async (req, res,next) => {
   try {
-    const { email, password } = req.body;
+    const { userName, email, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(201).json({ message: "user already exists" });
     }
-    const newUser = new User({ email, password });
+    const newUser = new User({ userName, email, password });
     await newUser.save();
-    const token = generateToken(newUser._id);
-    res.cookie("token", token, {
-       withCredentials: true,
-       httpOnly: false,
-      //  sameSite: "None",
-       maxAge: 86400 * 1000, 
-    });
     res.status(200).json({ message: "User signed in successfully", success: true, newUser });
     next();
   } catch (error) {
@@ -27,7 +21,7 @@ router.post("/register", async (req, res,next) => {
   }
 });
 
-router.post("/login", async (req, res, next) => {
+authRouter.post("/login", async (req, res, next) => {
   try{
     const { email, password } = req.body;
     const user = await User.findOne({email});
@@ -52,6 +46,6 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.post('/', userVerification);
+authRouter.post('/', userVerification);
 
-export default router;
+export default authRouter;

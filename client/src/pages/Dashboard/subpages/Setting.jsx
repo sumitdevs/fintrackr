@@ -1,9 +1,9 @@
 import React from 'react';
-
+import Category from '../../../forms/Category';
 const Setting = ()=>{
     return(
         <div>
-            <p>Hello from Setting</p>
+            <Category />
         </div>
     )
 }

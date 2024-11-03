@@ -2,15 +2,18 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import HeaderDashboard from '../components/HeaderDashboard';
 import Footer from '../components/Footer';
+import Sidebar from '../components/Sidebar';
 
 const DashboardLayout = () => {
   return (
-    <div>
+    <div className='flex h-screen'>
+      <Sidebar />
+      <div className='w-full p-8'>
       <HeaderDashboard />
       <main>
-      <Outlet /> {/* This renders the nested route components */}
+      <Outlet />
       </main>
-      <Footer />
+      </div>
     </div>
   );
 };

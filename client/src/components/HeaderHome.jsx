@@ -11,7 +11,7 @@ const HeaderHome = () => {
         const fetchUser = async ()=>{
             const {data} = await axios.post("http://localhost:5000", {}, {withCredentials:true});
             const {user, status} = data;
-            setUser(user.split('@')[0]);
+            setUser(user);
             setStatus(status);
         };
 
