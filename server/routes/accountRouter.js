@@ -1,8 +1,7 @@
 import express from 'express';
 import Account from '../models/Account.js';
 import mongoose from 'mongoose';
-import getuserId from '../utils/getUserid.js';
-
+import getuserId from '../utils/getuserId.js';
 const accountRouter = express.Router();
 
 accountRouter.get('/accounts', async (req,res)=>{
