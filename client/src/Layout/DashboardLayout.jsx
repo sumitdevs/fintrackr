@@ -8,10 +8,10 @@ const DashboardLayout = () => {
   return (
     <div className='flex h-screen'>
       <Sidebar />
-      <div className='w-full p-8'>
+      <div className='flex-1'>
       <HeaderDashboard />
-      <main>
-      <Outlet />
+      <main className=''>
+          <Outlet />
       </main>
       </div>
     </div>

@@ -1,3 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+    body{
+        @apply font-ff_heading text-lg text-clr_neutral_800;
+    }
+    h1,h2,h3,h4,h5,h6{
+        @apply font-ff_primary text-clr_primary_300 font-semibold;
+    }
+
+    a{
+        @apply text-lg lg:text-base font-semibold leading-6 text-gray-900;
+    }
+    a:hover,
+    a:focus{
+        @apply text-clr_accent_200;
+    }
+}
+
+@layer components{
+    .hero-section{
+        @apply max-w-5xl text-center flex flex-col justify-center mx-auto;
+    }
+    .hero-heading{
+        word-spacing: -0.2rem;
+        @apply leading-normal text-4xl sm:text-5xl sm:leading-normal md:leading-normal md:text-6xl mb-5  font-bold
+    }
+
+    .card{
+        @apply flex  gap-y-6 bg-clr_primary_300 bg-opacity-10 rounded-lg flex-col justify-center items-center shadow-xl px-10 lg:px-3 py-8 text-center;
+    }
+}
+
+@layer utilities {
+    .container{
+        @apply mx-auto max-w-7xl px-6;
+    }
+    .scrollbar-hidden::-webkit-scrollbar {
+        display: none; /* For Chrome, Safari, and Opera */
+      }
+      
+      .scrollbar-hidden {
+        -ms-overflow-style: none; /* For Internet Explorer and Edge */
+        scrollbar-width: none; /* For Firefox */
+      }
+}

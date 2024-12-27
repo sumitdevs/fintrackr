@@ -1,26 +1,78 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { MdDashboard } from "react-icons/md";
+import { MdAccountBalance } from "react-icons/md";
+import { FaMoneyBillTransfer } from "react-icons/fa6";
+import { IoPieChart } from "react-icons/io5";
+import { IoAlarmSharp } from "react-icons/io5";
+import { MdCategory } from "react-icons/md";
+import { IoCalendarNumber } from "react-icons/io5";
+import { FaFileExport } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
+import { FaCreditCard } from "react-icons/fa6";
+
+
+import DashLink from "./DashLink";
+const navData = [
+  {
+    name: "overview",
+    url: "/dashboard",
+    icon: <MdDashboard />
+  },
+  {
+    name: "account",
+    url: "/dashboard/account",
+    icon: <MdAccountBalance />
+  },
+  {
+    name: "transaction",
+    url: "/dashboard/transaction",
+    icon: <FaMoneyBillTransfer />
+  },
+  {
+    name: "budget",
+    url: "/dashboard/budget",
+    icon: <IoPieChart />
+  },
+  {
+    name: "credit cards",
+    url: "/dashboard/credit-cards",
+    icon: <FaCreditCard />
+  },
+  {
+    name: "debts",
+    url: "/dashboard/debts",
+    icon: <IoAlarmSharp />
+  },
+  {
+    name: "category",
+    url: "/dashboard/category",
+    icon: <MdCategory />
+  },
+  {
+    name: "calender",
+    url: "/dashboard/calender",
+    icon: <IoCalendarNumber />
+  },
+  {
+    name: "settings",
+    url: "/dashboard/settings",
+    icon: <IoMdSettings />
+  },
+]
 const Sidebar = () => {
   return (
-    <div class="w-64 lg:hidden bg-black text-white p-4 lflex flex-col">
-      <h2 class="text-2xl font-bold mb-8">Dashboard</h2>
-      <nav class="flex flex-col space-y-4">
-        <Link to="/dashboard" class="hover:bg-gray-700 focus:bg-gray-700 p-2 rounded">
-          Overview
+    <div id="sidebar" className="w-64   border">
+    <div className="py-4">
+    <Link to="/" className="py-3">
+          <img
+            className="h-6"
+            src="/images/fintrackrlogo.svg"
+            alt="logo"
+          />
         </Link>
-        <Link to="/dashboard/settings" class="hover:bg-gray-700 p-2 rounded">
-          Settings
-        </Link>
-        <Link to="/dashboard/account" class="hover:bg-gray-700 p-2 rounded">
-          Account
-        </Link>
-        <Link to="/dashboard/reports" class="hover:bg-gray-700 p-2 rounded">
-          Reports
-        </Link>
-        <Link to="#" class="hover:bg-gray-700 p-2 rounded">
-          Support
-        </Link>
-      </nav>
+    </div>
+      <DashLink navData={navData}/>
     </div>
   );
 };

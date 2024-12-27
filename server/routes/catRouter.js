@@ -1,57 +1,78 @@
-import ExpenseCat from "../models/ExpenseCat.js";
-import IncomeCat from "../models/IncomeCat.js";
+
+import Category from "../models/Category.js";
 import express from 'express';
+import getuserId from "../utils/getUserid.js";
 
 const catRouter = express.Router();
 
-catRouter.get('/expensecat', (req,res)=>{
-    res.json({name:'expensecat'});
-    fetchExpenseCat();
-});
-
-const createExpensecat = async ()=>{
-    try{
-        const expensecat = new ExpenseCat({
-            name: "food/drink",
-            subCat: ["bar", "eating out"]
-        });
-        const saveExpensecat = await expensecat.save();
-        console.log(saveExpensecat);
-    } catch(error){
-        console.log('error happens : ', error);
-    }
-}
-
-const fetchExpenseCat = async ()=>{
+catRouter.get('/category', async (req,res)=>{
+    const token = req.cookies.token;
+    const userId = getuserId(token);
     try {
-        const categories = await ExpenseCat.find();
-        categories.forEach(category => {
-            console.log(`Category: ${category.name}`);
-            category.subCat.forEach(subcategory => {
-                console.log(`- Subcategory: ${subcategory}`);
-            });
-        });
+        const categories = await Category.find({userId});
+        res.json(categories);
     } catch (error) {
         console.error("Error retrieving categories:", error);
     }
-}
-
-catRouter.get('/incomecat', (req,res)=>{
-    res.json({name:'incomecat'});
-    createIncomecat();
 });
 
-const createIncomecat = async ()=>{
+catRouter.post('/category', async (req,res)=>{
+    const token = req.cookies.token;
+    const userId = getuserId(token);
+    const {type, name, subCat} = req.body;
+    createCategory(userId, type, name, subCat,res);
+});
+
+catRouter.put('/category/:id', async (req,res)=>{
+    const {id} = req.params;
+    const  {type, name, subCat} = req.body;
     try{
-        const incomecat = new IncomeCat({
-            name: "income",
-            subCat: ["salary", "odd jobs", "pension"]
-        });
-        const saveIncomecat = await incomecat.save();
-        console.log(saveIncomecat);
+        const updateCategory =  await Category.findByIdAndUpdate(id,{
+            $set: {
+                type:type,
+                name: name,
+                subCat: subCat
+            }
+        },  { new: true, runValidators: true });
+        
+        res.status(200).json({
+            message: "Category updated successfully",
+          });
+
+    }catch(error){
+        console.log(error)
+    }
+})
+
+catRouter.delete('/category/:id', async (req,res)=>{
+    const {id} = req.params;
+    try{
+      const deleteCat = await Category.findByIdAndDelete(id);
+      if(!deleteCat) res.status(404).json({message:"category not found!"});
+      res.status(200).json({message:"category deleted"});
     } catch(error){
-        console.log('error happens : ', error);
+        console.log(error);
+    }
+})
+
+const createCategory = async (Id, type, name, subCat,res)=>{
+    try{
+        const category = new Category({
+            userId: Id,
+            type:type,
+            name: name,
+            subCat: subCat
+        });
+        const saveCategory = await category.save();
+        res.status(200).json({message:"category created"});
+        console.log(saveCategory);
+    } catch(error){
+        res.status(201).json({message:"category already exist"});
     }
 }
+
+
+
+
 
 export default catRouter;

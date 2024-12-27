@@ -61,15 +61,15 @@ const Register = ()=>{
     
 
     return(
-            <div className="mx-auto max-w-7xl h-screen">
+            <div className="container h-screen ">
                 <div className='w-full mx-auto md:w-1/2 lg:w-1/3 flex flex-col justify-center items-center gap-6 p-10 bg-white rounded-md'>
-                    <h2 className='text-4xl font-semibold'>Signup</h2>
+                    <h2 className='text-4xl font-semibold text-clr_primary_300'>Signup</h2>
                     <form onSubmit={handleSubmit} action="" className='w-full flex flex-col gap-4'>
-                        <input onChange={handleFormData} className='border outline-none px-4 py-2'     placeholder='Username' type="text" name="userName" id='userName' value={formData.userName} required />
-                        <input onChange={handleFormData} className='border outline-none px-4 py-2' placeholder='Email' type="email" name="email" id='email' value={formData.email} required />
-                        <input onChange={handleFormData} className='border outline-none px-4 py-2' placeholder='Create password' type="password" value={formData.password} name="password" id="password" required />
-                        <input onChange={handleFormData} className='border outline-none px-4 py-2' placeholder='Confirm password' type="password" value={formData.confirmPassword} name="confirmPassword" id="confirmPassword" required />
-                        <button className='bg-blue-600 py-2 rounded-sm text-white' type="submit">Signup</button>
+                        <input onChange={handleFormData} className='border outline-none text-clr_neutral_800 px-4 py-2'     placeholder='Username' type="text" name="userName" id='userName' value={formData.userName} required />
+                        <input onChange={handleFormData} className='border outline-none text-clr_neutral_800 px-4 py-2' placeholder='Email' type="email" name="email" id='email' value={formData.email} required />
+                        <input onChange={handleFormData} className='border outline-none text-clr_neutral_800 px-4 py-2' placeholder='Create password' type="password" value={formData.password} name="password" id="password" required />
+                        <input onChange={handleFormData} className='border outline-none text-clr_neutral_800 px-4 py-2' placeholder='Confirm password' type="password" value={formData.confirmPassword} name="confirmPassword" id="confirmPassword" required />
+                        <button className='bg-clr_accent_200 hover:bg-clr_accent_100 py-2 rounded-sm text-white' type="submit">Signup</button>
                         <p className=' self-center'>Already have an account?<a className='text-blue-600' href="#">Login</a></p>
                         <div className='flex items-center gap-2 text-gray-400'>
                         <hr className='w-full
@@ -78,7 +78,7 @@ const Register = ()=>{
                         <hr className='w-full' />
                         </div>
                     </form>
-                    <button className="relative w-full flex items-center bg-white border px-6 py-2">
+                    <button className="relative w-full flex items-center bg-white border hover:border-clr_accent_200 px-6 py-2">
                         <span className="absolute left-4 text-2xl">
                         <FcGoogle />
                         </span>

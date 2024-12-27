@@ -9,10 +9,16 @@ import Contact from './pages/Contact';
 import Features from './pages/Features';
 import Login from './forms/Login'
 import Dashboard from './pages/Dashboard/Dashboard';
-import Account from './pages/Dashboard/subpages/account';
+import Account from './pages/Dashboard/subpages/Account';
 import ProtectedRoute from './ProtectedRoute';
 import Setting from './pages/Dashboard/subpages/setting';
 import Report from './pages/Dashboard/subpages/report';
+import Transaction from './pages/Dashboard/subpages/Transaction';
+import Budget from './pages/Dashboard/subpages/Budget';
+import CreditCard from './pages/Dashboard/subpages/CreditCard';
+import Debt from './pages/Dashboard/subpages/Debt';
+import Category from './pages/Dashboard/subpages/Category';
+import Calender from './pages/Dashboard/subpages/Calender';
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +37,12 @@ function App() {
           <Route path='account' element={<Account/>} />
           <Route path='settings' element={<Setting/>} />
           <Route path='reports' element={<Report/>} />
+          <Route path='transaction' element={<Transaction/>} />
+          <Route path='budget' element={<Budget/>} />
+          <Route path='credit-cards' element={<CreditCard/>} />
+          <Route path='debts' element={<Debt/>} />
+          <Route path='category' element={<Category/>} />
+          <Route path='calender' element={<Calender/>} />
           </Route>
         </Route>
       </Routes>

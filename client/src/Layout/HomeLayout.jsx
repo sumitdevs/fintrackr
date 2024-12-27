@@ -8,7 +8,7 @@ const HomeLayout = () => {
     <div>
       <HeaderHome />
       <main>
-      <Outlet /> {/* This renders the nested route components */}
+         <Outlet /> 
       </main>
       <Footer />
     </div>
