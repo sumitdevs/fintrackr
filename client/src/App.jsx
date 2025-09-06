@@ -11,7 +11,7 @@ import Login from './forms/Login'
 import Dashboard from './pages/Dashboard/Dashboard';
 import Account from './pages/Dashboard/subpages/Account';
 import ProtectedRoute from './ProtectedRoute';
-import Setting from './pages/Dashboard/subpages/setting';
+import Setting from './pages/Dashboard/subpages/Setting';
 import Report from './pages/Dashboard/subpages/report';
 import Transaction from './pages/Dashboard/subpages/Transaction';
 import Budget from './pages/Dashboard/subpages/Budget';
